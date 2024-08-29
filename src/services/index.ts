@@ -1,4 +1,4 @@
-import { Company } from "./company.service";
+import { Company } from "./blacklist.service";
 
 export {
     Company as CompanyService

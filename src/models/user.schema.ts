@@ -13,6 +13,7 @@ export interface IUser extends Document {
   phoneNumber: string;
   password: string;
   status: string;
+  role: string;
 }
 
 // user schema
@@ -28,10 +29,16 @@ const UserSchema = new Schema<IUser>(
     },
     middleName: String,
     email: String,
-    password: String,
+    password: {
+      type: String,
+    },
     phoneNumber: {
       type: String,
       required: true,
+    },
+    role: {
+      type: String,
+      enum: ["super-admin", "admin", "employee"]
     },
     status: {
       type: String,

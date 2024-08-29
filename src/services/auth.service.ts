@@ -1,21 +1,29 @@
-import { OtpModel } from "../models/otp.schema";
-import { IUser, UserModel } from "../models/user.schema";
 import Utils from "../utils/helper.utils";
 import {
   Iactivate,
   IchangePassword,
+  ICompanyPayload,
   IforgotPassword,
+  IprofileUser,
   IsignIn,
   IsignUp,
   ServiceRes,
 } from "./types/auth.types";
+import { sendEmail } from "./email.service";
+import { IUser, UserModel } from "../models/user.schema";
+import { CompanyModel, ICompany } from "../models/company.schema";
+import { UserCompanyModel } from "../models/userCompany.schema";
+import { OtpModel } from "../models/otp.schema";
+import { compare } from "bcrypt";
 
 export class AuthService {
   public async signIn(payload: IsignIn): Promise<ServiceRes> {
     const { email, password } = payload;
     const user: IUser | null = await UserModel.findOne({ email });
     if (!user) return { success: false, message: "Invalid credentials" };
+    // const rawUser = user.toJSON()
     const isValid = await user.isValidPassword(password);
+    // await compare(payload.password, rawUser.password);
     if (!isValid) return { success: false, message: "Invalid credentials" };
     const token = Utils.signToken({ email, id: user._id, status: user.status });
     return {
@@ -25,49 +33,40 @@ export class AuthService {
     };
   }
 
-  public async signUp(payload: IsignUp): Promise<ServiceRes> {
-    const {
-      email,
-      password,
-      confirmPassword,
-      firstName,
-      lastName,
-      phoneNumber,
-      middleName,
-    } = payload;
-
-    const userExists = await UserModel.findOne({ email });
-    if (userExists) return { success: false, message: "Invalid credentials." };
-    if (confirmPassword !== password)
-      return { success: false, message: "Passwords don't match." };
+  public async profileUser(profileUserPayload: IprofileUser, companyId: String) : Promise<ServiceRes> {
+    const findUser = await UserModel.findOne({
+      email: profileUserPayload.email
+    })
+    if(findUser) return { success: false, message: 'User already exists' };
     const createUser = await UserModel.create({
-      email,
-      password,
-      confirmPassword,
-      firstName,
-      lastName,
-      phoneNumber,
-      middleName,
-    });
-    if (!createUser) return { success: false, message: "Invalid credentials" };
-    const token = Utils.signToken({
-      email,
-      id: createUser._id,
-      status: createUser.status,
-    });
-    const otp = Utils.generateString({ number: true });
-    await OtpModel.create({
-      author_id: createUser._id,
-      otp,
-    });
-    return {
-      success: true,
-      message: "Logged in successfully.",
-      token,
-      options: {
-        otp,
-      },
-    };
+      ...profileUserPayload
+    })
+    const userCompany = await UserCompanyModel.create({
+      user: createUser._id,
+      company: companyId
+    })
+    return {success: true, message: 'User Profiled successfully.'}
+  }
+
+  public async registerCompany(payload: ICompanyPayload): Promise<ServiceRes> {
+    //find company by rc_number
+    const { user, ...rest } = payload
+    if(user.password !== user.confirmPassword) return { success: false, message: 'Invalid credentials' }
+    let company = await CompanyModel.findOne({
+      rc_number: payload.rc_number
+    })
+    if(company) return { success: false, message: 'Invalid credentials' }
+    //create all keys
+    company = await CompanyModel.create(rest)
+    const createUser = await UserModel.create({
+      ...user
+    })
+    const createUserCompany = await UserCompanyModel.create({
+      company: company._id,
+      user: createUser._id
+    })
+    const token = Utils.signToken({id: createUser._id, status: createUser.status });
+    return { success: true, message: 'Success', data: { company, user: createUser, token } }
   }
 
   public async activateProfile(payload: Iactivate): Promise<ServiceRes> {

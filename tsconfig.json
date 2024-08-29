@@ -4,8 +4,12 @@
     "module": "commonjs",
     "lib": ["DOM", "ES2015"],
     "baseUrl": ".",
+    "paths": {
+      "*": ["src/*"]
+    },
     "outDir": "./build",
     "rootDir": ".",
+    "rootDirs": ["src"],
     "strict": true,
     "noImplicitAny": true,
     "noUnusedLocals": false,
@@ -19,5 +23,6 @@
     "allowSyntheticDefaultImports": true,
     "pretty": true,
     "resolveJsonModule": true
-  }
+  },
+  "include": ["src/**/*"],
 }

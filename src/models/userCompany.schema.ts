@@ -3,21 +3,22 @@ import { Document, Schema, Types, model } from "mongoose";
 // (first_name, last_name, email, phone)
 
 // user interface
-export interface IComment extends Document {
-  content: string;
-  author_id: Types.ObjectId;
+export interface IUserCompany extends Document {
+  user: Types.ObjectId;
+  company: Types.ObjectId;
 }
 
 // user schema
-const CommentSchema = new Schema<IComment>(
+const UserCompanySchema = new Schema<IUserCompany>(
   {
-    content: {
-      type: String,
-      required: true,
-    },
-    author_id: {
+    user: {
       type: Schema.Types.ObjectId,
       ref: "User",
+      required: true,
+    },
+    company: {
+      type: Schema.Types.ObjectId,
+      ref: "Company",
       required: true,
     },
   },
@@ -30,4 +31,4 @@ const CommentSchema = new Schema<IComment>(
 );
 
 // create and export user model
-export const CommentModel = model<IComment>("Comment", CommentSchema);
+export const UserCompanyModel = model<IUserCompany>("UserCompany", UserCompanySchema);

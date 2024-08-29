@@ -1,3 +1,4 @@
+import { Request } from "express";
 import jsonWebToken from "jsonwebtoken";
 import { config } from "../config";
 import { AuthPayload } from "../services/types/auth.types";
@@ -18,7 +19,7 @@ export default class Utils {
 
   static generateString = ({ alpha = false, number = false }) => {
     let characters: string = "",
-      length: number = 10;
+      length: number = 11;
     let alphaChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
       numberChars = "0123456789";
     if (alpha) {
@@ -37,4 +38,13 @@ export default class Utils {
     }
     return result;
   };
+
+  static paginateOptions = (req: Request): {limit: number, offset: number} => {
+    const page: any = req?.query.page || 1;
+    const perPage: any = req?.query.perPage || 15;
+    return {
+      limit: perPage,
+      offset: (page - 1) * perPage,
+    };
+  }
 }

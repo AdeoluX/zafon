@@ -1,4 +1,4 @@
-import { Company } from "./company.controller";
+import { Blacklist } from "./blacklist.controller";
 import { AuthController } from "./auth.controller";
 
-export { Company as CompanyController, AuthController };
+export { Blacklist as BlacklistController, AuthController };

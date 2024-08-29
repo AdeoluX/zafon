@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import ApiResponse from "../utils/api-response";
-import { IsignIn, IsignUp } from "../services/types/auth.types";
+import {  ICompanyPayload, IsignIn, IsignUp } from "../services/types/auth.types";
 import { AuthService } from "../services/auth.service";
 const { created, customError, ok, response } = ApiResponse;
 
@@ -21,19 +21,19 @@ export class AuthController {
       next(error);
     }
   }
-  public async signUp(req: Request, res: Response, next: NextFunction) {
-    try {
-      const payload: IsignUp = req.body;
-      const { success, message, options, token } =
-        await AuthService.prototype.signUp(payload);
-      if (!success) return customError(res, 400, message);
+
+  public async registerCompany(req: Request, res: Response, next: NextFunction){
+    try{
+      const payload: ICompanyPayload = req.body
+      const {success, data, message} = await AuthService.prototype.registerCompany(payload)
+      if(!success) return customError(res, 400, message)
       return ok(
         res,
-        { ...options, token },
-        success ? "Signed Up Successfully" : "Invalid Credentials."
-      );
-    } catch (error) {
-      next(error);
+        data,
+        message
+      )
+    }catch(error){
+      next(error)
     }
   }
 
