@@ -7,6 +7,7 @@ export interface IBlackList extends Document {
   email?: string;
   phoneNumber?: string;
   bvn?: string;
+  nin?: string;
   status: string;
   image: string;
 }
@@ -23,6 +24,7 @@ const BlackListSchema = new Schema<IBlackList>(
     },
     middleName: String,
     bvn: String,
+    nin: String,
     email: String,
     phoneNumber: String,
     image: String,

@@ -2,9 +2,12 @@ import { BlackListModel } from "../models/blacklist.schema"
 import Utils from "../utils/helper.utils"
 import {IAddressPayload, IBlacklistPayload, IPaginate, IprofileUser, ServiceRes} from"./types/auth.types"
 export class BlacklistService {
-    async getBVNstatus(bvn: String): Promise<ServiceRes> {
+    async getBVNstatus(idNo: String): Promise<ServiceRes> {
         const blacklist = await BlackListModel.findOne({
-            bvn
+            $or: [
+                { bvn: idNo },
+                { nin: idNo }
+              ]
         })
         if(!blacklist) return { success: true, message: "No record found" }
         return {

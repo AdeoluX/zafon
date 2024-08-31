@@ -7,8 +7,8 @@ const { created, customError, ok, response } = ApiResponse;
 export class Blacklist{
     public async getBVNstatus(req: Request, res: Response, next: NextFunction){
         try {
-            const bvn: String = req.params.bvn;
-            const { success, message, data } = await BlacklistService.prototype.getBVNstatus(bvn)
+            const idNo: String = req.params.idNo;
+            const { success, message, data } = await BlacklistService.prototype.getBVNstatus(idNo)
             if (!success) return customError(res, 400, message);
             return ok(
                 res,

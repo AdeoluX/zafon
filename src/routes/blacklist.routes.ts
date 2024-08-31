@@ -10,7 +10,7 @@ class BlacklistRoutes {
   }
 
   public routes(): Router {
-    this.router.get("/:bvn", authMiddleware.verifyApiRequest, BlacklistController.prototype.getBVNstatus);
+    this.router.get("/:idNo", authMiddleware.verifyApiRequest, BlacklistController.prototype.getBVNstatus);
     this.router.post("/", authMiddleware.verifyApiRequest, BlacklistController.prototype.reportBVN);
     this.router.get("/", authMiddleware.verifyApiRequest, BlacklistController.prototype.getAllBvnReports);
 

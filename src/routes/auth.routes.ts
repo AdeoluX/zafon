@@ -12,19 +12,9 @@ class AuthRoutes {
   public routes(): Router {
     this.router.post("/sign-in", AuthController.prototype.signIn);
     this.router.post("/register-company", AuthController.prototype.registerCompany)
-    this.router.post(
-      "/forgot-password",
-      AuthController.prototype.forgotPassword
-    );
-    this.router.post(
-      "/activate-profile",
-      authMiddleware.verifyUser,
-      AuthController.prototype.activateProfile
-    );
-    this.router.post(
-      "/change-password",
-      AuthController.prototype.changePassword
-    );
+    this.router.post("/forgot-password", AuthController.prototype.forgotPassword);
+    this.router.post("/activate-profile", authMiddleware.verifyUser, AuthController.prototype.activateProfile);
+    this.router.post("/change-password", AuthController.prototype.changePassword);
     return this.router;
   }
 }
