@@ -1,0 +1,84 @@
+{
+  "teams": [
+    {
+      "name": "Arsenal",
+      "coach": "Mikel Arteta"
+    },
+    {
+      "name": "Aston Villa",
+      "coach": "Unai Emery"
+    },
+    {
+      "name": "Bournemouth",
+      "coach": "Andoni Iraola"
+    },
+    {
+      "name": "Brentford",
+      "coach": "Thomas Frank"
+    },
+    {
+      "name": "Brighton & Hove Albion",
+      "coach": "Roberto De Zerbi"
+    },
+    {
+      "name": "Chelsea",
+      "coach": "Mauricio Pochettino"
+    },
+    {
+      "name": "Crystal Palace",
+      "coach": "Roy Hodgson"
+    },
+    {
+      "name": "Everton",
+      "coach": "Sean Dyche"
+    },
+    {
+      "name": "Fulham",
+      "coach": "Marco Silva"
+    },
+    {
+      "name": "Ipswich Town",
+      "coach": "Kieran McKenna"
+    },
+    {
+      "name": "Leicester City",
+      "coach": "Enzo Maresca"
+    },
+    {
+      "name": "Liverpool",
+      "coach": "Jürgen Klopp"
+    },
+    {
+      "name": "Manchester City",
+      "coach": "Pep Guardiola"
+    },
+    {
+      "name": "Manchester United",
+      "coach": "Erik ten Hag"
+    },
+    {
+      "name": "Newcastle United",
+      "coach": "Eddie Howe"
+    },
+    {
+      "name": "Nottingham Forest",
+      "coach": "Steve Cooper"
+    },
+    {
+      "name": "Southampton",
+      "coach": "Russell Martin"
+    },
+    {
+      "name": "Tottenham Hotspur",
+      "coach": "Ange Postecoglou"
+    },
+    {
+      "name": "West Ham United",
+      "coach": "David Moyes"
+    },
+    {
+      "name": "Wolves",
+      "coach": "Gary O'Neil"
+    }
+  ]
+}

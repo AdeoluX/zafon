@@ -1,4 +1,5 @@
-import { Blacklist } from "./blacklist.controller";
 import { AuthController } from "./auth.controller";
+import { TeamController } from "./team.controller";
+import { FixtureController } from "./fixture.controller";
 
-export { Blacklist as BlacklistController, AuthController };
+export { AuthController, TeamController, FixtureController };

@@ -1,0 +1,10 @@
+node_modules
+dist
+npm-debug.log
+Dockerfile
+docker-compose.yml
+.git
+*.ts
+*.test.ts
+.env
+.env.test

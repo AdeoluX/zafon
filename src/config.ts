@@ -1,6 +1,5 @@
 import dotenv from "dotenv";
 import bunyan from "bunyan";
-// import cloudinary from "cloudinary";
 
 dotenv.config({});
 
@@ -18,7 +17,6 @@ class Config {
   }
 
   public validateConfig(): void {
-    // manual validation
     for (const [key, value] of Object.entries(this)) {
       if (value === undefined) {
         throw new Error(`Configuration ${key} is undefined.`);

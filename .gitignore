@@ -9,3 +9,5 @@ node_modules/
 
 # macOS directory attributes
 .DS_Store
+
+.env.test

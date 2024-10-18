@@ -1,7 +1,7 @@
 import { Request } from "express";
 import jsonWebToken from "jsonwebtoken";
 import { config } from "../config";
-import { AuthPayload } from "../services/types/auth.types";
+import { AuthPayload } from "../services/types/app.types";
 
 export default class Utils {
   static signToken = (object: Object): string => {
@@ -39,12 +39,17 @@ export default class Utils {
     return result;
   };
 
-  static paginateOptions = (req: Request): {limit: number, offset: number} => {
-    const page: any = req?.query.page || 1;
-    const perPage: any = req?.query.perPage || 15;
-    return {
-      limit: perPage,
-      offset: (page - 1) * perPage,
-    };
+  static paginateOptions = (query: { page: number | string; perPage: number | string }) => {
+    const page = Number(query.page) || 1;
+    const perPage = Number(query.perPage) || 10;
+    const skip = (page - 1) * perPage;
+    
+    return { page, perPage, skip };
+  }
+
+  static getRandomInt(min: number, max: number): number {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 }
