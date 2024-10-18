@@ -1,0 +1,19 @@
+# version: '3.8'
+
+# services:
+#   app:
+#     build: .
+#     ports:
+#       - "3445:3445"
+#     volumes:
+#       - .:/usr/src/app
+#       - /usr/src/app/node_modules
+#     command: yarn dev  # Use this for development; change to `yarn start` for production
+#   test:
+#     build: .
+#     volumes:
+#       - .:/usr/src/app
+#       - /usr/src/app/node_modules
+#     command: yarn test
+
+

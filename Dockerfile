@@ -18,7 +18,7 @@ COPY . .
 RUN yarn run build
 
 # Expose the port your app runs on
-EXPOSE 3444
+EXPOSE 3700
 
 # Command to run the app
-CMD ["node", "build/index.js"]
+CMD ["node", "build/src/index.js"]
