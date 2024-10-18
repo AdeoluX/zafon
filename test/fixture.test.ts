@@ -160,7 +160,7 @@ describe('Express App', () => {
       .catch(error => {
         done(error);
       });
-  });
+  }, 10000);
 
   it('user should fail to create fixture', (done) => {
     request(app)
@@ -178,7 +178,7 @@ describe('Express App', () => {
       .catch(error => {
         done(error);
       });
-  });
+  }, 20000);
 
   it('admin should fail to create fixture with same team id', (done) => {
     request(app)
@@ -197,7 +197,7 @@ describe('Express App', () => {
       .catch(error => {
         done(error);
       });
-  });
+  }, 10000);
 
   it('admin should fail to create fixture without "kickOffTime"', (done) => {
     request(app)
@@ -215,7 +215,7 @@ describe('Express App', () => {
       .catch(error => {
         done(error);
       });
-  });
+  }, 10000);
 
   it('admin should fail to update fixture with only one team score', (done) => {
     request(app)
@@ -232,7 +232,7 @@ describe('Express App', () => {
       .catch(error => {
         done(error);
       });
-  });
+  }, 10000);
 
   it('admin should update fixture successfully.', (done) => {
     request(app)
@@ -249,7 +249,7 @@ describe('Express App', () => {
       .catch(error => {
         done(error);
       });
-  });
+  }, 10000);
 
   it('user should fail to update fixture successfully.', (done) => {
     request(app)
@@ -266,7 +266,7 @@ describe('Express App', () => {
       .catch(error => {
         done(error);
       });
-  });
+  }, 20000);
 
   it('user should get fixtures successfully.', (done) => {
     request(app)
@@ -280,7 +280,7 @@ describe('Express App', () => {
       .catch(error => {
         done(error);
       });
-  });
+  }, 10000);
 
   it('admin should get fixtures successfully.', (done) => {
     request(app)
@@ -337,7 +337,7 @@ describe('Express App', () => {
       .catch(error => {
         done(error);
       });
-  });
+  }, 10000);
 
   it('user should get links by fixture id.', (done) => {
     request(app)

@@ -12,10 +12,12 @@ import hpp from "hpp";
 import compression from "compression";
 import Logger from "bunyan";
 import HTTP_STATUS from "http-status-codes";
-
+import session from "express-session";
+import connectRedis, { Client } from "connect-redis";
+import { createClient } from "redis";
 import applicationRoutes from "./routes";
-
 import { IErrorResponse, CustomError } from "./utils/error-handler";
+import { RedisStore, redisClient } from "./config/redis";
 
 export class Server {
   private app: Application;
@@ -27,10 +29,38 @@ export class Server {
   public start(): void {
     this.securityMiddleware(this.app);
     this.standardMiddleware(this.app);
+    this.redisSessionMiddleware(this.app); // <-- Add Redis session middleware
     this.routesMiddleware(this.app);
     this.apiMonitoring(this.app);
     this.startServer(this.app);
     this.globalErrorHandler(this.app);
+  }
+
+  private redisSessionMiddleware(app: Application): void {
+    // const redisClient = createClient({
+    //   url: process.env.REDIS_URL
+    // });
+  
+    // // Connect to Redis
+    // redisClient.connect().catch(console.error);
+  
+    // // Initialize Redis store
+    // const RedisStore = connectRedis(session);
+  
+    // Configure session middleware
+    app.use(
+      session({
+        store: new RedisStore({ client: redisClient as unknown as any }),  // Type assertion to resolve TS issue
+        secret: process.env.SESSION_SECRET || "your_secret_key", // Replace with a secure secret in production
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+          secure: true, // Use 'true' if using HTTPS
+          httpOnly: true,
+          maxAge: 1000 * 60 * 60 * 24, // 1 day
+        },
+      })
+    );
   }
 
   private standardMiddleware(app: Application): void {
@@ -48,7 +78,9 @@ export class Server {
     applicationRoutes(app);
   }
 
-  private apiMonitoring(app: Application): void {}
+  private apiMonitoring(app: Application): void {
+    // You can add your API monitoring logic here
+  }
 
   private securityMiddleware(app: Application): void {
     app.use(hpp());
@@ -76,7 +108,6 @@ export class Server {
         res: Response,
         next: NextFunction
       ) => {
-        // log.error(error);
         if (error instanceof CustomError) {
           return res.status(error.statusCode).json(error.serializeErrors());
         }

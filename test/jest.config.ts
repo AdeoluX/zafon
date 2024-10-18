@@ -14,6 +14,9 @@ const config: Config.InitialOptions = {
   coverageDirectory: 'coverage',
   testPathIgnorePatterns: ['/node_modules/', '/build/'],
   clearMocks: true,
+  moduleNameMapper: {
+    'express-session': '<rootDir>/node_modules/express-session',
+  },
 };
 
 export default config;

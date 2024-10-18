@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3445:3445"
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: yarn dev  # Use this for development; change to `yarn start` for production
+    depends_on:
+      - redis  # Ensures Redis starts before the app
+    environment:
+      - REDIS_URL=redis://redis:6379  # Use this environment variable for Redis
+
+  test:
+    build: .
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: yarn test
+    depends_on:
+      - redis  # Ensures Redis starts before running tests
+    environment:
+      - REDIS_URL=redis://redis:6379  # Redis connection for tests
+
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes  # Enables persistence in Redis
