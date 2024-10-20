@@ -52,6 +52,8 @@ PORT=3445
 MONGO_URI=mongodb://localhost:27017/express_auth_rbac
 REDIS_URL=redis://localhost:6379
 JWT_SECRET=your_jwt_secret
+TOKEN_SECRET=
+NODE_ENV=
 ```
 
 4. For testing purposes, create a `.env.test` file to store the environment variables used specifically for testing:
@@ -62,6 +64,7 @@ DATABASE_URL=mongodb://localhost:27017/test_auth_rbac
 REDIS_URL=redis://localhost:6379
 JWT_SECRET=test_jwt_secret
 TOKEN_SECRET=
+NODE_ENV=
 ```
 
 ### Running the Server

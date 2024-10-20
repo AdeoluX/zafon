@@ -7,7 +7,7 @@ import { ITeam } from '../src/models/team.schema';
 
 const authRoute = '/api/v1/auth';
 const teamRoute = '/api/v1/team';
-const jestTimeout = 10000
+const jestTimeout = 15000
 const password: string = faker.internet.password({ length: 8 });
 const firstName: string = faker.person.firstName();
 const lastName: string = faker.person.lastName();

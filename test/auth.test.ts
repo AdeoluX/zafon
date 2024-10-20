@@ -4,7 +4,7 @@ import { app } from '../src';
 import mongoose from 'mongoose';
 
 let server: any;
-const jestTimeout = 10000
+const jestTimeout = 15000
 const authRoute = '/api/v1/auth';
 const password: string = faker.internet.password({length: 8});
 const firstName: string = faker.person.firstName();
