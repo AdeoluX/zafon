@@ -8,7 +8,6 @@ This project is an Express-based REST API that provides authentication, session 
 - Session Management: Uses Redis to store session data.
 - Role-Based Access Control (RBAC): Admins and regular users have different permissions.
 - Testing: Comprehensive testing with `supertest` and `jest`.
-- MongoDB In-Memory: Tests use `MongoMemoryServer` for fast, in-memory MongoDB databases.
 
 ## Technologies Used
 
@@ -26,7 +25,7 @@ This project is an Express-based REST API that provides authentication, session 
 
 ### Prerequisites
 
-- Node.js (v14 or higher)
+- Node.js (v18 or higher)
 - Docker (optional, for containerized development)
 - MongoDB
 - Redis
@@ -36,7 +35,7 @@ This project is an Express-based REST API that provides authentication, session 
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/express-auth-rbac.git
+git clone https://github.com/AdeoluX/gomoneyAssessment.git
 cd express-auth-rbac
 ```
 
@@ -59,9 +58,10 @@ JWT_SECRET=your_jwt_secret
 
 ```env
 PORT=3445
-MONGO_URI=mongodb://localhost:27017/test_auth_rbac
+DATABASE_URL=mongodb://localhost:27017/test_auth_rbac
 REDIS_URL=redis://localhost:6379
 JWT_SECRET=test_jwt_secret
+TOKEN_SECRET=
 ```
 
 ### Running the Server
@@ -94,7 +94,6 @@ yarn test
 
 This command will:
 
-- Spin up an in-memory MongoDB instance using `MongoMemoryServer`.
 - Execute the test suite using `jest` and `supertest`.
 - Use the environment variables from `test.env` to run tests.
 
@@ -124,7 +123,7 @@ yarn seed
 
 This command will insert predefined data such as users or admin roles into your MongoDB instance.
 
-Ensure that your `.env` or `.env.test` file contains the correct `MONGO_URI` for connecting to the database, and the seed script is properly defined in your project.
+Ensure that your `.env` or `.env.test` file contains the correct `DATABASE_URL` for connecting to the database, and the seed script is properly defined in your project.
 
 ### API Endpoints
 

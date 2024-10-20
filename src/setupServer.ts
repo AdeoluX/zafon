@@ -18,6 +18,7 @@ import { createClient } from "redis";
 import applicationRoutes from "./routes";
 import { IErrorResponse, CustomError } from "./utils/error-handler";
 import { RedisStore, redisClient } from "./config/redis";
+import rateLimit from "express-rate-limit";
 
 export class Server {
   private app: Application;
@@ -37,27 +38,16 @@ export class Server {
   }
 
   private redisSessionMiddleware(app: Application): void {
-    // const redisClient = createClient({
-    //   url: process.env.REDIS_URL
-    // });
-  
-    // // Connect to Redis
-    // redisClient.connect().catch(console.error);
-  
-    // // Initialize Redis store
-    // const RedisStore = connectRedis(session);
-  
-    // Configure session middleware
     app.use(
       session({
-        store: new RedisStore({ client: redisClient as unknown as any }),  // Type assertion to resolve TS issue
-        secret: process.env.SESSION_SECRET || "your_secret_key", // Replace with a secure secret in production
+        store: new RedisStore({ client: redisClient as unknown as any }),
+        secret: process.env.SESSION_SECRET || "your_secret_key",
         resave: false,
         saveUninitialized: false,
         cookie: {
-          secure: true, // Use 'true' if using HTTPS
+          secure: true,
           httpOnly: true,
-          maxAge: 1000 * 60 * 60 * 24, // 1 day
+          maxAge: 1000 * 60 * 60 * 24,
         },
       })
     );
@@ -92,6 +82,13 @@ export class Server {
         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       })
     );
+    const limiter = rateLimit({
+      windowMs: 15 * 60 * 1000,
+      max: 100,
+      message: "Too many requests from this IP, please try again later.",
+    });
+
+    app.use(limiter);
   }
 
   private globalErrorHandler(app: Application): void {

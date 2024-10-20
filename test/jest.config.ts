@@ -17,6 +17,7 @@ const config: Config.InitialOptions = {
   moduleNameMapper: {
     'express-session': '<rootDir>/node_modules/express-session',
   },
+  watchman: false
 };
 
 export default config;
