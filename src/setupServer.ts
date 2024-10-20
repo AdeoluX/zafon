@@ -89,6 +89,7 @@ export class Server {
     });
 
     app.use(limiter);
+    app.set('trust proxy', true);
   }
 
   private globalErrorHandler(app: Application): void {
