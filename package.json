@@ -7,7 +7,10 @@
     "build": "tsc && copyfiles -u 1 src/**/*.{html,hbs,css,json} build/src/",
     "test": "cross-env NODE_ENV=test jest --runInBand  --forceExit",
     "start": "node ./build/src/index.js",
-    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node ./src/index.ts'"
+    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node ./src/index.ts'",
+    "docker-compose-start": "ts-node ./src/index.ts",
+    "seed": "ts-node src/seeder.ts"
+
   },
   "jest": {
     "preset": "ts-jest",

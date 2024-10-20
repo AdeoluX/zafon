@@ -10,6 +10,7 @@ import { ILink } from '../src/models/link.schema';
 
 const authRoute = '/api/v1/auth';
 const fixtureRoute = '/api/v1/fixture';
+const jestTimeout = 10000
 const password: string = faker.internet.password({ length: 8 });
 const firstName: string = faker.person.firstName();
 const lastName: string = faker.person.lastName();
@@ -61,7 +62,7 @@ describe('Express App', () => {
         name: 'Manchester United'
       }
     )
-  }, 10000)
+  }, jestTimeout)
 
   it('should sign admin up', (done) => {
     request(app)
@@ -84,7 +85,7 @@ describe('Express App', () => {
       .catch(error => {
         done(error); // Call done with an error to fail the test
       });
-  }, 10000);
+  }, jestTimeout);
 
   it('should sign admin in', (done) => {
     request(app)
@@ -101,7 +102,7 @@ describe('Express App', () => {
       .catch(error => {
         done(error);
       });
-  }, 10000);
+  }, jestTimeout);
 
   it('should sign user up', (done) => {
     request(app)
@@ -124,7 +125,7 @@ describe('Express App', () => {
       .catch(error => {
         done(error);
       });
-  }, 10000);
+  }, jestTimeout);
 
   it('should sign user in', (done) => {
     request(app)
@@ -141,7 +142,7 @@ describe('Express App', () => {
       .catch(error => {
         done(error);
       });
-  }, 10000);
+  }, jestTimeout);
 
   it('admin should create fixture', (done) => {
     request(app)
@@ -160,7 +161,7 @@ describe('Express App', () => {
       .catch(error => {
         done(error);
       });
-  }, 10000);
+  }, jestTimeout);
 
   it('user should fail to create fixture', (done) => {
     request(app)
@@ -178,7 +179,7 @@ describe('Express App', () => {
       .catch(error => {
         done(error);
       });
-  }, 20000);
+  }, jestTimeout);
 
   it('admin should fail to create fixture with same team id', (done) => {
     request(app)
@@ -197,7 +198,7 @@ describe('Express App', () => {
       .catch(error => {
         done(error);
       });
-  }, 10000);
+  }, jestTimeout);
 
   it('admin should fail to create fixture without "kickOffTime"', (done) => {
     request(app)
@@ -215,7 +216,7 @@ describe('Express App', () => {
       .catch(error => {
         done(error);
       });
-  }, 10000);
+  }, jestTimeout);
 
   it('admin should fail to update fixture with only one team score', (done) => {
     request(app)
@@ -232,7 +233,7 @@ describe('Express App', () => {
       .catch(error => {
         done(error);
       });
-  }, 10000);
+  }, jestTimeout);
 
   it('admin should update fixture successfully.', (done) => {
     request(app)
@@ -249,7 +250,7 @@ describe('Express App', () => {
       .catch(error => {
         done(error);
       });
-  }, 10000);
+  }, jestTimeout);
 
   it('user should fail to update fixture successfully.', (done) => {
     request(app)
@@ -266,7 +267,7 @@ describe('Express App', () => {
       .catch(error => {
         done(error);
       });
-  }, 20000);
+  }, jestTimeout);
 
   it('user should get fixtures successfully.', (done) => {
     request(app)
@@ -280,7 +281,7 @@ describe('Express App', () => {
       .catch(error => {
         done(error);
       });
-  }, 10000);
+  }, jestTimeout);
 
   it('admin should get fixtures successfully.', (done) => {
     request(app)
@@ -337,7 +338,7 @@ describe('Express App', () => {
       .catch(error => {
         done(error);
       });
-  }, 10000);
+  }, jestTimeout);
 
   it('user should get links by fixture id.', (done) => {
     request(app)
@@ -359,7 +360,6 @@ describe('Express App', () => {
       .set('Authorization', `Bearer ${userBearerToken}`)
       .send()
       .then(response => {
-        console.log(response.body)
         expect(response.status).toBe(200);
         done();
       })

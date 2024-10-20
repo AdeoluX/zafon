@@ -7,6 +7,7 @@ import { ITeam } from '../src/models/team.schema';
 
 const authRoute = '/api/v1/auth';
 const teamRoute = '/api/v1/team';
+const jestTimeout = 10000
 const password: string = faker.internet.password({ length: 8 });
 const firstName: string = faker.person.firstName();
 const lastName: string = faker.person.lastName();
@@ -63,7 +64,7 @@ describe('Express App', () => {
       .catch(error => {
         done(error); // Call done with an error to fail the test
       });
-  }, 10000);
+  }, jestTimeout);
 
   it('should sign admin in', (done) => {
     request(app)
@@ -80,7 +81,7 @@ describe('Express App', () => {
       .catch(error => {
         done(error);
       });
-  }, 10000);
+  }, jestTimeout);
 
   it('should sign user up', (done) => {
     request(app)
@@ -103,7 +104,7 @@ describe('Express App', () => {
       .catch(error => {
         done(error);
       });
-  }, 10000);
+  }, jestTimeout);
 
   it('should sign user in', (done) => {
     request(app)
@@ -120,7 +121,7 @@ describe('Express App', () => {
       .catch(error => {
         done(error);
       });
-  }, 10000);
+  }, jestTimeout);
 
   it('admin should create team', (done) => {
     request(app)
@@ -137,7 +138,7 @@ describe('Express App', () => {
       .catch(error => {
         done(error);
       });
-  }, 10000);
+  }, jestTimeout);
 
   it('user should fail to create team', (done) => {
     request(app)

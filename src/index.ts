@@ -23,10 +23,10 @@ const server: MainServer = new MainServer(app);
 databaseConnection.connect();
 server.start();
 
-// seeder.seedTeam().then((result) => {
-//   if(result){
-//     seeder.insertFixtures()
-//   }
-// })
+seeder.seedTeam().then((result) => {
+  if(result){
+    seeder.insertFixtures()
+  }
+})
 
 export { app };

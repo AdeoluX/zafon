@@ -2,10 +2,9 @@ import request from 'supertest';
 import { faker } from '@faker-js/faker';
 import { app } from '../src';
 import mongoose from 'mongoose';
-import { MongoMemoryServer } from 'mongodb-memory-server';
 
 let server: any;
-
+const jestTimeout = 10000
 const authRoute = '/api/v1/auth';
 const password: string = faker.internet.password({length: 8});
 const firstName: string = faker.person.firstName();
@@ -54,7 +53,7 @@ describe('Express App', () => {
                                        })
     expect(response.status).toBe(201);
     expect(response.body.success).toBe(true);
-  }, 10000);
+  }, jestTimeout);
 
   it('should sign admin in', async () => {
     const response = await request(app)
@@ -66,7 +65,7 @@ describe('Express App', () => {
 
     expect(response.status).toBe(200);
     expect(typeof response.body.data.token).toBe('string')
-  }, 10000);
+  }, jestTimeout);
 
   it('should sign user up', async () => {
     const response = await request(app).post(`${authRoute}/sign-up`)
@@ -82,7 +81,7 @@ describe('Express App', () => {
                                        })
     expect(response.status).toBe(201);
     expect(response.body.success).toBe(true);
-  }, 10000);
+  }, jestTimeout);
 
   it('should sign user in', async () => {
     const response = await request(app)
@@ -93,5 +92,5 @@ describe('Express App', () => {
       });
 
     expect(response.status).toBe(200);
-  }, 10000);
+  }, jestTimeout);
 });
