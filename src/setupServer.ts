@@ -90,7 +90,7 @@ export class Server {
       });
   
       app.use(limiter);
-      app.set('trust proxy', true);
+      // app.set('trust proxy', true);
     }
   }
 
