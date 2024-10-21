@@ -1,6 +1,7 @@
 export interface IsignIn {
   email: string;
   password: string;
+  isAdmin: boolean;
 }
 
 export interface IsignUp {

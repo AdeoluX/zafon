@@ -60,7 +60,8 @@ describe('Express App', () => {
       .post(`${authRoute}/sign-in`)
       .send({
         email,
-        password
+        password,
+        isAdmin: true
       });
 
     expect(response.status).toBe(200);
@@ -77,7 +78,7 @@ describe('Express App', () => {
                                         firstName: userFirstName,
                                         lastName: userLastName,
                                         middleName: userMiddleName,
-                                        isAdmin: true
+                                        isAdmin: false
                                        })
     expect(response.status).toBe(201);
     expect(response.body.success).toBe(true);
@@ -88,7 +89,8 @@ describe('Express App', () => {
       .post(`${authRoute}/sign-in`)
       .send({
         email: userEmail,
-        password: userPassword
+        password: userPassword,
+        isAdmin: false
       });
 
     expect(response.status).toBe(200);

@@ -92,7 +92,8 @@ describe('Express App', () => {
       .post(`${authRoute}/sign-in`)
       .send({
         email,
-        password
+        password,
+        isAdmin: true
       })
       .then(response => {
         adminBearerToken = response.body.data.token;
@@ -132,7 +133,8 @@ describe('Express App', () => {
       .post(`${authRoute}/sign-in`)
       .send({
         email: userEmail,
-        password: userPassword
+        password: userPassword,
+        isAdmin: false
       })
       .then(response => {
         userBearerToken = response.body.data.token;

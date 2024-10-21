@@ -10,8 +10,8 @@ import { redisClient } from "../config/redis";
 
 export class AuthService {
   public async signIn(payload: IsignIn): Promise<ServiceRes> {
-    const { email, password } = payload;
-    const user: IUser | null = await UserModel.findOne({ email });
+    const { email, password, isAdmin } = payload;
+    const user: IUser | null = await UserModel.findOne({ email, role: isAdmin ? 'admin' : 'user' });
     if (!user) return { success: false, message: "Invalid credentials" };
     const isValid = await user.isValidPassword(password);
     if (!isValid) return { success: false, message: "Invalid credentials" };
@@ -38,7 +38,7 @@ export class AuthService {
 
   public async signUp(payload: IsignUp): Promise<ServiceRes> {
     const { email, password, confirmPassword, firstName, lastName, phoneNumber, middleName, isAdmin } = payload;
-    let user: IUser | null = await UserModel.findOne({ email });
+    let user: IUser | null = await UserModel.findOne({ email, role: isAdmin ? 'admin' : 'user' });
     if (user) return { success: false, message: "Invalid credentials" };
     if(password !== confirmPassword) return { success: false, message: 'Passwords must match.' }
     user = await UserModel.create({
