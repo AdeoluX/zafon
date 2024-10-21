@@ -1,4 +1,4 @@
-# Express Authentication and Role-Based Access Control (RBAC) API
+# Team and Fixtures API
 
 This project is an Express-based REST API that provides authentication, session management, and role-based access control (RBAC). The API uses JWT tokens for authentication, Redis for session management, and MongoDB as the database.
 
@@ -53,6 +53,7 @@ MONGO_URI=mongodb://localhost:27017/express_auth_rbac
 REDIS_URL=redis://localhost:6379
 JWT_SECRET=your_jwt_secret
 TOKEN_SECRET=
+SESSION_SECRET=
 NODE_ENV=
 ```
 
@@ -102,7 +103,7 @@ This command will:
 
 ### Docker Setup
 
-The project uses Docker for containerized development. A `docker-compose.yml` file is provided to help you get started quickly.
+If you like to use Docker compose locally This project uses Docker for containerized development. A `docker-compose.yml` file is provided to help you get started quickly.
 
 To start the containers:
 
@@ -114,14 +115,6 @@ To run the tests in a Docker container:
 
 ```bash
 docker-compose run test
-```
-
-### Seeding the Database
-
-To seed the MongoDB database with initial data, run the following command:
-
-```bash
-yarn seed
 ```
 
 This command will insert predefined data such as users or admin roles into your MongoDB instance.
