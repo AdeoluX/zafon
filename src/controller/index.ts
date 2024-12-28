@@ -1,5 +1,4 @@
 import { AuthController } from "./auth.controller";
-import { TeamController } from "./team.controller";
-import { FixtureController } from "./fixture.controller";
+import { UserController } from "./user.controller";
 
-export { AuthController, TeamController, FixtureController };
+export { AuthController, UserController };

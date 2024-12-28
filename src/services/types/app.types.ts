@@ -4,6 +4,20 @@ export interface IsignIn {
   isAdmin: boolean;
 }
 
+export interface IbvnVerification {
+  bvn: string;
+  dob: string;
+}
+
+export interface Isubscribe {
+  amount: number;
+  authorizer: IAuthorizer;
+}
+
+export interface IAuthorizer {
+  userId: string
+}
+
 export interface IsignUp {
   email: string;
   password: string;

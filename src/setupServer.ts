@@ -17,7 +17,7 @@ import connectRedis, { Client } from "connect-redis";
 import { createClient } from "redis";
 import applicationRoutes from "./routes";
 import { IErrorResponse, CustomError } from "./utils/error-handler";
-import { RedisStore, redisClient } from "./config/redis";
+// import { RedisStore, redisClient } from "./config/redis";
 import rateLimit from "express-rate-limit";
 
 export class Server {
@@ -30,7 +30,7 @@ export class Server {
   public start(): void {
     this.securityMiddleware(this.app);
     this.standardMiddleware(this.app);
-    this.redisSessionMiddleware(this.app); // <-- Add Redis session middleware
+    // this.redisSessionMiddleware(this.app); // <-- Add Redis session middleware
     this.routesMiddleware(this.app);
     this.apiMonitoring(this.app);
     this.startServer(this.app);
@@ -38,30 +38,17 @@ export class Server {
   }
 
   private redisSessionMiddleware(app: Application): void {
-    app.use(
-      session({
-        store: new RedisStore({ client: redisClient as unknown as any }),
-        secret: process.env.SESSION_SECRET || "your_secret_key",
-        resave: false,
-        saveUninitialized: false,
-        cookie: {
-          secure: true,
-          httpOnly: true,
-          maxAge: 1000 * 60 * 60 * 24,
-        },
-      })
-    );
+    
   }
 
   private standardMiddleware(app: Application): void {
-    app.use(compression());
+    // app.use(compression({}))
     app.use(json({ limit: "50mb" }));
     app.use(urlencoded({ extended: true, limit: "50mb" }));
     app.disable("x-powered-by");
   }
 
   private routesMiddleware(app: Application): void {
-    app.use(compression());
     app.use(json({ limit: "50mb" }));
     app.use(urlencoded({ extended: true, limit: "50mb" }));
     app.disable("x-powered-by");
@@ -73,7 +60,6 @@ export class Server {
   }
 
   private securityMiddleware(app: Application): void {
-    app.use(hpp());
     app.use(helmet());
     app.use(
       cors({

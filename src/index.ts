@@ -2,7 +2,7 @@ import express, { Express } from "express";
 import { Server as MainServer } from "./setupServer";
 import { config } from "./config";
 import databaseConnection from "./setupDatabase";
-import seeder from "./seeder"
+import { seed } from "./utils/seeder";
 
 class Application {
   public loadConfig(): void {
@@ -20,13 +20,9 @@ application.loadConfig();
 // application.handleExit();
 
 const server: MainServer = new MainServer(app);
+seed.seedAssets()
 databaseConnection.connect();
 server.start();
 
-seeder.seedTeam().then((result) => {
-  if(result){
-    seeder.insertFixtures()
-  }
-})
 
 export { app };

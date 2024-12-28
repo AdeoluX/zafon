@@ -15,6 +15,19 @@ export const signInValidation = {
     }).messages(messages)
 }
 
+export const subscribeValidation = {
+    body: Joi.object().keys({
+        amount: Joi.number().required(),
+    }).messages(messages)
+}
+
+export const bvnVerificationValidation = {
+    body: Joi.object().keys({
+        bvn: Joi.string().email().required(),
+        dob: Joi.string().required()
+    }).messages(messages)
+}
+
 export const signUpValidation = {
     body: Joi.object().keys({
         email: Joi.string().email().required(),
