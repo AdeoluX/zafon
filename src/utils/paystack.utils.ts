@@ -49,13 +49,15 @@ export const initializePayment = async (
   email: string,
   amount: number,
   callback_url: string,
-  metadata: Metadata = {}
+  metadata: Metadata = {},
+  reference: string
 ): Promise<PaystackResponse<any>> => {
   try {
     const response = await paystackApi.post("/transaction/initialize", {
       email,
       amount,
       callback_url,
+      reference,
       metadata,
     });
     return response.data;

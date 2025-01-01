@@ -21,6 +21,33 @@ export const subscribeValidation = {
     }).messages(messages)
 }
 
+export const payValidation = {
+    body: Joi.object().keys({
+        amount: Joi.number().required(),
+        assetId: Joi.string().required(),
+        type: Joi.string().required(),
+        endDate: Joi.date().optional(),
+    }).messages(messages)
+}
+
+export const createAssetValidation = {
+    body: Joi.object().keys({
+        name: Joi.string().required(),
+        unitPrice: Joi.number().required(),
+        type: Joi.string().required(),
+        rate: Joi.number().required(),
+    }).messages(messages)
+}
+
+export const updateAssetValidation = {
+    body: Joi.object().keys({
+        name: Joi.string().optional(),
+        unitPrice: Joi.number().optional(),
+        type: Joi.string().optional(),
+        rate: Joi.number().optional(),
+    }).messages(messages)
+}
+
 export const bvnVerificationValidation = {
     body: Joi.object().keys({
         bvn: Joi.string().email().required(),

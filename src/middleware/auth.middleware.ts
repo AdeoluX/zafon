@@ -1,53 +1,49 @@
 import { Request, Response, NextFunction } from "express";
 import { NotAuthorizedError } from "../utils/error-handler";
 import Utils from "../utils/helper.utils";
-import { redisClient } from "../config/redis";
 
 export class AuthMiddleware {
   constructor(private allowedRoles: string[] = []) {
     this.verifyUser = this.verifyUser.bind(this);
   }
-  public async verifyUser(req: Request, res: Response, next: NextFunction): Promise<void> {
-    if (!req.headers?.authorization) {
-      throw new NotAuthorizedError(
-        "Token is not available. Please login again."
-      );
-    }
-    try {
-      const BearerToken = req.headers?.authorization.split(" ")[1];
-      if (!BearerToken) {
-        throw new NotAuthorizedError(
-          "Token is not available. Please login again."
-        );
-      }
-      const payload: any = Utils.verifyToken(BearerToken);
 
+  public async verifyUser(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      // Check for the Authorization header
+      if (!req.headers?.authorization) {
+        throw new NotAuthorizedError("Token is not available. Please login again.");
+      }
+
+      // Extract Bearer Token
+      const BearerToken = req.headers.authorization.split(" ")[1];
+      if (!BearerToken) {
+        throw new NotAuthorizedError("Token is not available. Please login again.");
+      }
+
+      // Verify the token
+      const payload: any = Utils.verifyToken(BearerToken);
       if (!payload) {
-        throw new NotAuthorizedError(
-          "You do not have permission to perform this action."
-        );
+        throw new NotAuthorizedError("You do not have permission to perform this action.");
       }
-      const sessionData = await redisClient.get(`session:${payload.id}`);
-      if (!sessionData) {
-        throw new NotAuthorizedError(
-          "Session has expired. Please login again."
-        );
+
+      // Validate roles, if specified
+      if (this.allowedRoles.length > 0 && !this.allowedRoles.includes(payload.role)) {
+        throw new NotAuthorizedError("You do not have permission to perform this action.");
       }
-      const parsedSessionData = JSON.parse(sessionData);
-      if (this.allowedRoles.length > 0 && !this.allowedRoles.includes(parsedSessionData.role)) {
-        throw new NotAuthorizedError(
-          "You do not have permission to perform this action."
-        );
-      }
+
+      // Attach user details to request body
       req.body = {
         ...req.body,
-        authorizer: parsedSessionData,
+        authorizer: payload,
       };
+
+      next(); // Move to the next middleware or route handler
     } catch (error) {
-      next(new NotAuthorizedError("You do not have permission to perform this action. Please login."));
+      // Pass the error to the next middleware for centralized error handling
+      next(error);
     }
-    next();
   }
+
   public static withRoles(allowedRoles: string[]): AuthMiddleware {
     return new AuthMiddleware(allowedRoles);
   }

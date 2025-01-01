@@ -52,4 +52,12 @@ export default class Utils {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
+
+  static fakeTranfer(success: boolean){
+    if(success){
+      return true
+    }else{
+      return false
+    }
+  }
 }

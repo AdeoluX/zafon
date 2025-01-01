@@ -14,8 +14,23 @@ export interface Isubscribe {
   authorizer: IAuthorizer;
 }
 
+export interface Ipayment {
+  assetUserId?: string;
+  amount: number;
+  assetId: string;
+  type: 'FUND' | 'SUBSCRIBE';
+  endDate?: Date;
+  authorizer: IAuthorizer;
+}
+
+export interface IRedemption {
+  unitToRedeem?: number;
+  amount?: number;
+  authorizer: IAuthorizer;
+}
+
 export interface IAuthorizer {
-  userId: string
+  id: string
 }
 
 export interface IsignUp {
@@ -50,6 +65,13 @@ export interface Ipagination {
   page: number;
   perPage: number;
   skip: number;
+}
+
+export interface IAsset {
+  name: string;
+  unitPrice: number;
+  rate: number;
+  type: "fund" | "bond" | "contribution" | "token" | "lock";
 }
 
 export interface IdateFilter {

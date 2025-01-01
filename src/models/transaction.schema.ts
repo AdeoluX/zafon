@@ -5,9 +5,11 @@ export interface ITransaction extends Document {
   currency: string;
   amount: number;
   status: "pending" | "success" | "failed" | "abandoned";
+  reference: string;
   type: "DR" | "CR";
   email: string;
   assetId: Types.ObjectId;
+  userId: Types.ObjectId;
 }
 
 // Define the schema for the transaction model
@@ -28,6 +30,11 @@ const TransactionSchema = new Schema<ITransaction>(
       ref: "Asset", // Assuming there is an Asset model
       required: [true, "Asset ID is required"],
     },
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: "User", // Assuming there is an Asset model
+      required: [true, "Asset ID is required"],
+    },
     email: {
       type: String,
       required: [true, "Email is required"],
@@ -46,6 +53,10 @@ const TransactionSchema = new Schema<ITransaction>(
         message: "Status must be one of 'pending', 'success', 'failed', or 'abandoned'",
       },
       default: "pending",
+    },
+    reference: {
+      type: String,
+      trim: true,
     },
     type: {
       type: String,

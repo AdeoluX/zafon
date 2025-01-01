@@ -31,14 +31,19 @@ const AssetUserSchema = new Schema<IAssetUser>(
     amountEarned: {
       type: Number,
     },
-    type: {
+    startDate: {
+      type: Date,
+      default: Date.now()
+    },
+    endDate: {
+      type: Date,
+    },
+    status: {
       type: String,
-      required: [true, "Asset type is required"],
       enum: {
-        values: ["fund", "bond", "contribution", "token", "lock"],
-        message: "Type must be one of 'fund', 'bond', 'contribution', or 'token'",
+        values: ["ongoing", "completed"],
       },
-      default: "lock"
+      default: "ongoing"
     },
   },
   {
