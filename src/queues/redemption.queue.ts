@@ -15,7 +15,7 @@ export const agenda = new Agenda({
 });
 
 // Define the redemption job with attempts and delay logic
-agenda.define('redemption-job', async (job: any) => {
+agenda.define<any>('redemption-job', async (job: any) => {
   let { assetUserId, unitToRedeem, userId, transactionId, amount } = job.attrs.data;
   const maxAttempts = 5; // Maximum retry attempts
   const backoffDelay = 10000; // Initial delay in milliseconds (10 seconds)
