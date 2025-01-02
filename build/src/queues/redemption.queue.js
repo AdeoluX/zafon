@@ -18,8 +18,9 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const assetUser_schema_1 = require("../models/assetUser.schema");
 const transaction_schema_1 = require("../models/transaction.schema");
 const helper_utils_1 = __importDefault(require("../utils/helper.utils"));
+const config_1 = require("../config");
 const mongoConnectionString = 'mongodb://localhost:27017/pulse';
-exports.pulse = new pulse_1.default({ db: { address: process.env.DATABASE_URL || 'mongodb://localhost:27017/agenda', collection: 'jobQueue' } });
+exports.pulse = new pulse_1.default({ db: { address: config_1.config.DATABASE_URL, collection: 'jobQueue' } });
 // Or override the default collection name:
 // const pulse = new Pulse({db: {address: mongoConnectionString, collection: 'jobCollectionName'}});
 // or pass additional connection options:

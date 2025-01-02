@@ -3,10 +3,11 @@ import mongoose from 'mongoose';
 import { AssetUserModel } from '../models/assetUser.schema';
 import { TransactionModel } from '../models/transaction.schema';
 import Utils from '../utils/helper.utils';
+import { config } from '../config';
 
 const mongoConnectionString = 'mongodb://localhost:27017/pulse';
 
-export const pulse = new Pulse({ db: { address: process.env.DATABASE_URL || 'mongodb://localhost:27017/agenda', collection: 'jobQueue' } });
+export const pulse = new Pulse({ db: { address: config.DATABASE_URL, collection: 'jobQueue' } });
 
 // Or override the default collection name:
 // const pulse = new Pulse({db: {address: mongoConnectionString, collection: 'jobCollectionName'}});
