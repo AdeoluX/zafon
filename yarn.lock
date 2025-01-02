@@ -1084,6 +1084,18 @@
   resolved "https://registry.yarnpkg.com/@msgpackr-extract/msgpackr-extract-win32-x64/-/msgpackr-extract-win32-x64-3.0.3.tgz#0aa5502d547b57abfc4ac492de68e2006e417242"
   integrity sha512-x0fWaQtYp4E6sktbsdAqnehxDgEc/VwM7uLsRCYWaiGu0ykYdZPiS8zCWdnjHwyiumousxfBm4SO31eXqwEZhQ==
 
+"@pulsecron/pulse@^1.6.7":
+  version "1.6.7"
+  resolved "https://registry.yarnpkg.com/@pulsecron/pulse/-/pulse-1.6.7.tgz#d9c0f0782a3fb6384394db076e706d8509b86597"
+  integrity sha512-16qnVgEFuoFlCwr4O/oToVEXtSS7XMmYxnALcmIXoyAgl1Jornjf4BN+FOGAcfcH24NaJ/pT0jbWEs7g/RBzMQ==
+  dependencies:
+    cron-parser "^4.9.0"
+    date.js "~0.3.3"
+    debug "~4.3.4"
+    human-interval "~2.0.1"
+    moment-timezone "^0.5.45"
+    mongodb "^6.5.0"
+
 "@redis/bloom@1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@redis/bloom/-/bloom-1.2.0.tgz#d3fd6d3c0af3ef92f26767b56414a370c7b63b71"
@@ -4131,7 +4143,7 @@ mkdirp@~0.5.1:
   dependencies:
     minimist "^1.2.6"
 
-moment-timezone@~0.5.37:
+moment-timezone@^0.5.45, moment-timezone@~0.5.37:
   version "0.5.46"
   resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.46.tgz#a21aa6392b3c6b3ed916cd5e95858a28d893704a"
   integrity sha512-ZXm9b36esbe7OmdABqIWJuBBiLLwAjrN7CE+7sYdCCx82Nabt1wHDj8TVseS59QIlfFPbOoiBPm6ca9BioG4hw==
@@ -4197,7 +4209,7 @@ mongodb@^4.11.0:
     "@aws-sdk/credential-providers" "^3.186.0"
     "@mongodb-js/saslprep" "^1.1.0"
 
-mongodb@^6.9.0, mongodb@~6.12.0:
+mongodb@^6.5.0, mongodb@^6.9.0, mongodb@~6.12.0:
   version "6.12.0"
   resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-6.12.0.tgz#8b0bda1b18cbb3f0aec8ab4119c5dc535a43c444"
   integrity sha512-RM7AHlvYfS7jv7+BXund/kR64DryVI+cHbVAy9P61fnb1RcWZqOW1/Wj2YhqMCx+MuYhqTRGv7AwHBzmsCKBfA==

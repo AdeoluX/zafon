@@ -12,9 +12,10 @@ import {
 import { IUser, UserModel } from "../models/user.schema";
 import { config } from "../config";
 import { initializePayment } from "../utils/paystack.utils";
-import { TransactionModel } from "../models/transaction.schema";
+import { ITransaction, TransactionModel } from "../models/transaction.schema";
 import { AssetUserModel, IAssetUser } from "../models/assetUser.schema";
 import { AssetModel } from "../models/asset.schema";
+import { RedemptionJobData } from "../queues/redemption.queue2";
 import { scheduleRedemptionJob } from "../queues/redemption.queue";
 
 export class UserService {
@@ -106,7 +107,7 @@ export class UserService {
       }
   
       // Create a pending transaction
-      const transaction = await TransactionModel.create({
+      const transaction: ITransaction = await TransactionModel.create({
         currency: "NGN",
         amount: redemptionAmount,
         status: "pending",
@@ -117,12 +118,18 @@ export class UserService {
         userId: authorizer!.id,
       });
 
-      await scheduleRedemptionJob({
-          assetUserId,
-          unitToRedeem,
-          userId: authorizer!.id,
-          transactionId: transaction!._id
-      })
+      if(!transaction) return{
+        success: false,
+      }
+
+      const redemptionData: RedemptionJobData = {
+        assetUserId,
+        unitToRedeem,
+        userId: authorizer!.id,
+        transactionId: transaction!._id
+    }
+
+      await scheduleRedemptionJob(redemptionData, new Date(Date.now() + 2 * 60 * 1000).toISOString())
 
       // await RedemptionQueue.add('process-redemption', {
       //   assetUserId,
