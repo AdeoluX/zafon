@@ -3,8 +3,7 @@ services:
     name: zafon
     runtime: node  # Specify the Node.js version
     buildCommand: |
-      yarn install
-      yarn run build
+      
     startCommand: yarn run start
     plan: free
     envVars:
